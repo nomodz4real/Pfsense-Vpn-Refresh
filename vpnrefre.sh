@@ -5,8 +5,8 @@
 # Version 1.0 - Initial Release [Jul. 22, 2019]
 
 # Export the key and secret used by the api to your local system at runtime
-export FAUXAPI_APIKEY=key
-export FAUXAPI_APISECRET=secret
+export FAUXAPI_APIKEY=PFFApRKMIQWl0HV5HbDsvQKJ
+export FAUXAPI_APISECRET=JOTkJxThIEvjPfTdRxX0kDFzQtK7bOYCDpbCZfPjzsM6Y9ba5mfz6AuhTqsP
 
 # Grab the path of the script
 path=`pwd`
@@ -31,12 +31,12 @@ $path/servermanipulation.py $bestserverfound
 $path/reachout_to_pfsense.py $pfSense_ip_address $pfSense_port set | jq .
 
 # Reload the openvpn service on Michael
-echo -e """8\recho \"<?php include('openvpn.inc'); openvpn_resync_all();?>\" | php -q\rexit\r0\r""" | sshpass -p $pfsensepass ssh admin@192.168.1.1 &>> /dev/null
+echo -e """8\recho \"<?php include('openvpn.inc'); openvpn_resync_all();?>\" | php -q\rexit\r0\r""" | sshpass -p $pfsensepass ssh admin@$pfSense_ip_address &>> /dev/null
 
 # Cleanup
-if [ -e bestserverfound ] || [ -e client.json ] || [ -e autooutput.json ]
+if [ -e *.json ]
 then
-	rm bestserverfound client.json autooutput.json
+	rm *.json
 fi
 
 echo "Done!"

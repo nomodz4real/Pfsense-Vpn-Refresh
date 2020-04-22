@@ -20,25 +20,29 @@ nordvpn-server-find - https://github.com/mrzool/nordvpn-server-find
 
 Installation instructions:
 
-1. Configure the Software Dependencies listed above except for nordvpn-server-find, we will do this later
+Configure the Software Dependencies listed above except for nordvpn-server-find, we will do this later
 
-2. Pull down the repository:
+Pull down the repository:
 
 git clone https://github.com/nomodz4real/Pfsense-Vpn-Refresh.git
 
-3. Navigate inside the folder created:
+Navigate inside the folder created:
 
 cd Pfsense-Vpn-Refresh/
 
-4. Create a file with your pfSense server's admin account password to be used by the script via sshpass:
+Create a file with your pfSense server's admin account password to be used by the script via sshpass:
 
 echo "youadminpassword" > .pfsensepassfile
 
-5. Create a file with your pfSense server's ip address and listening port, be mindful to add a space between the two:
+Create a file with your pfSense server's ip address and listening port, be mindful to add a space between the two:
 
 echo "ipaddress port" > .pfsense_ip_and_port
 
-6. Pull down nordvpn-server-find repository inside the Pfsense-Vpn-Refresh folder:
+Create a file with your pfSense-fauxAPI key and secret that you would have generated in the steps to installing the faux-api from https://github.com/ndejong/pfsense_fauxapi . Be mindful of keeping a space between the key and secret
+
+echo "pfsensekey pfsensesecret" > .pfsense_key_and_secret
+
+Pull down nordvpn-server-find repository inside the Pfsense-Vpn-Refresh folder:
 
 git clone https://github.com/mrzool/nordvpn-server-find.git
 
@@ -46,6 +50,8 @@ git clone https://github.com/mrzool/nordvpn-server-find.git
 To keep your password secret run the following commands to ensure that only root has access to the files and will require the script be run as root with sudo
 
 sudo chmod 775 ./vpnrefre.sh;sudo chmod 760 .pf* ./*.py;sudo chown root:sudo ./* ./.pf*
+
+***Note*** When running `sudo chown root:sudo ./* ./.pf*` make sure that you add the correct sudo group you may have configured on your system, for example the sudo group could also be named "wheel"
 
 To run:
 
