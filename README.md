@@ -60,9 +60,9 @@ Pull down nordvpn-server-find repository inside the Pfsense-Vpn-Refresh folder:
 (Optional)
 To keep your password secret run the following commands to ensure that only root has access to the files and will require the script be run as root with sudo
 
-    sudo chmod 775 ./vpnrefre.sh;sudo chmod 760 .pf* ./*.py;sudo chown root:sudo ./* ./.pf*
+ `sudo chmod 760 .pf*;sudo chown root:sudo vpnrefre.sh servermanipulation.py reachout_to_pfsense.py ./.pf*`
 
-***Note*** When running `sudo chown root:sudo ./* ./.pf*` make sure that you add the correct sudo group you may have configured on your system, for example the sudo group could also be named "wheel"
+***Note*** When running `sudo chown root:sudo vpnrefre.sh servermanipulation.py reachout_to_pfsense.py ./.pf*` make sure that you add the correct sudo group you may have configured on your system, for example the sudo group could also be named "wheel"
 
 To run:
 
