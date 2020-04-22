@@ -45,7 +45,7 @@ git clone https://github.com/mrzool/nordvpn-server-find.git
 (Optional)
 To keep your password secret run the following commands to ensure that only root has access to the files and will require the script be run as root with sudo
 
-chmod 755 *;chmod 744 .*;chown root:root * .*
+sudo chmod 775 ./vpnrefre.sh;sudo chmod 760 .pf* ./*.py;sudo chown root:sudo ./* ./.pf*
 
 To run:
 
