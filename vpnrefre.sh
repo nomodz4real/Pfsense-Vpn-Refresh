@@ -1,8 +1,4 @@
 #!/bin/bash
-# Bash script to refresh the vpn client for outbound traffic on your edge firewall
-# Created by Anthony Malone (antmmalone@gmail.com)
-#
-# Version 1.0 - Initial Release [Jul. 22, 2019]
 
 # Grab the path of the script
 path=`pwd`
