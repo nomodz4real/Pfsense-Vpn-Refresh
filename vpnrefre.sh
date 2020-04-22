@@ -4,13 +4,13 @@
 #
 # Version 1.0 - Initial Release [Jul. 22, 2019]
 
+# Grab the path of the script
+path=`pwd`
+
 # Export the key and secret used by the api to your local system at runtime
 
 export FAUXAPI_APIKEY=`cat $path/.pfsense_key_and_secret | cut -d " " -f 1`
 export FAUXAPI_APISECRET=`cat $path/.pfsense_key_and_secret | cut -d " " -f 2`
-
-# Grab the path of the script
-path=`pwd`
 
 # Grab the ip and port for the pfSense server
 pfSense_ip_address=`cat $path/.pfsense_ip_and_port | cut -d " " -f 1`
