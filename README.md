@@ -30,6 +30,7 @@ sshpass
     git clone https://github.com/mrzool/nordvpn-server-find.git
 ## Installation
 
+
 Configure the Software Dependencies listed above except for nordvpn-server-find, we will do this later
 
 Pull down the repository:
@@ -48,6 +49,10 @@ Create a file with your pfSense server's ip address and listening port, be mindf
 
     echo "ipaddress port" > .pfsense_ip_and_port
 
+Create a file with your pfSense-fauxAPI key and secret that you would have generated in the steps to installing the faux-api from https://github.com/ndejong/pfsense_fauxapi . Be mindful of keeping a space between the key and secret
+
+    echo "pfsensekey pfsensesecret" > .pfsense_key_and_secret
+
 Pull down nordvpn-server-find repository inside the Pfsense-Vpn-Refresh folder:
 
     git clone https://github.com/mrzool/nordvpn-server-find.git
@@ -55,16 +60,16 @@ Pull down nordvpn-server-find repository inside the Pfsense-Vpn-Refresh folder:
 (Optional)
 To keep your password secret run the following commands to ensure that only root has access to the files and will require the script be run as root with sudo
 
-    chmod 755 *;chmod 744 .*;chown root:root * .*
+    sudo chmod 775 ./vpnrefre.sh;sudo chmod 760 .pf* ./*.py;sudo chown root:sudo ./* ./.pf*
+
+***Note*** When running `sudo chown root:sudo ./* ./.pf*` make sure that you add the correct sudo group you may have configured on your system, for example the sudo group could also be named "wheel"
 
 To run:
 
-    ./vpnrefre.sh 
+./vpnrefre.sh 
 
 or if you are using the secure method
 
-    sudo ./vpnrefre.sh
-
- 
+sudo ./vpnrefre.sh 
 
 You can also add this to your crontab or systemd timers as desired to run in the background
