@@ -5,8 +5,9 @@
 # Version 1.0 - Initial Release [Jul. 22, 2019]
 
 # Export the key and secret used by the api to your local system at runtime
-export FAUXAPI_APIKEY=PFFApRKMIQWl0HV5HbDsvQKJ
-export FAUXAPI_APISECRET=JOTkJxThIEvjPfTdRxX0kDFzQtK7bOYCDpbCZfPjzsM6Y9ba5mfz6AuhTqsP
+
+export FAUXAPI_APIKEY=`cat $path/.pfsense_key_and_secret | cut -d " " -f 1`
+export FAUXAPI_APISECRET=`cat $path/.pfsense_key_and_secret | cut -d " " -f 2`
 
 # Grab the path of the script
 path=`pwd`
@@ -34,7 +35,7 @@ $path/reachout_to_pfsense.py $pfSense_ip_address $pfSense_port set | jq .
 echo -e """8\recho \"<?php include('openvpn.inc'); openvpn_resync_all();?>\" | php -q\rexit\r0\r""" | sshpass -p $pfsensepass ssh admin@$pfSense_ip_address &>> /dev/null
 
 # Cleanup
-if [ -e *.json ]
+if [ -e client.json ] || [ -e autooutput.json ]
 then
 	rm *.json
 fi
