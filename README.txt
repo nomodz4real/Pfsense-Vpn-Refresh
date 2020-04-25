@@ -4,6 +4,8 @@ FauxAPI on pfsense- https://github.com/ndejong/pfsense_fauxapi
 
 Python 3.X
 
+Pip for python 3
+
 pfsense-fauxapi python library:
 
     pip3 install pfsense-fauxapi
