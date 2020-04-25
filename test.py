@@ -18,7 +18,7 @@ def grab_fields_from_file(filename,option):
 	stripped_list = []
 	for i in result:
 		stripped_list.append(i.strip())
-	return stripped_list
+	return stripped_list 
 
 def build_faux_api_connection():
 	# First some URL formatting that I worked on to allow for custom port numbers in your 
@@ -48,5 +48,7 @@ def set_pfsense_config(bestserver):
 def reload_pfsense():
 	build_faux_api_connection().config_reload()
 
-set_pfsense_config("us2877.nordvpn.com")
+bestserver = ("us2877.nordvpn.com")
+print("Server Found: " + bestserver)
+set_pfsense_config(bestserver)
 reload_pfsense()
