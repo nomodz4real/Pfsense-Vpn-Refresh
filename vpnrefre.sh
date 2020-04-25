@@ -28,4 +28,3 @@ bestserverfound=`$path/nordvpn-server-find/nordvpn-server-find -l US -c 10 -n 1 
 $path/tasks.py $pfSense_ip_address $pfSense_port $bestserverfound
 
 echo "Done!"
-`
