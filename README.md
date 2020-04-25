@@ -25,13 +25,11 @@ sshpass
 
     sudo pacman -Sy sshpass
 
-[nordvpn-server-find](https://github.com/mrzool/nordvpn-server-find):
-
-    git clone https://github.com/mrzool/nordvpn-server-find.git
+[nordvpn-server-find](https://github.com/mrzool/nordvpn-server-find): Pulled at first run if it does not exist in the working directory
 ## Installation
 
 
-Configure the Software Dependencies listed above except for nordvpn-server-find, we will do this later
+Configure the Software Dependencies listed above except for nordvpn-server-find, this will be done by the shell script
 
 Pull down the repository:
 
@@ -53,12 +51,8 @@ Create a file with your pfSense-fauxAPI key and secret that you would have gener
 
     echo "pfsensekey pfsensesecret" > .pfsense_key_and_secret
 
-Pull down nordvpn-server-find repository inside the Pfsense-Vpn-Refresh folder:
-
-    git clone https://github.com/mrzool/nordvpn-server-find.git
-
 (Optional)
-To keep your password secret run the following commands to ensure that only root has access to the files and will require the script be run as root with sudo
+To keep your password secret run the following commands to ensure that only root has access to the files and will require the script be run as root with sudo. Otherwise anyone in your group can access you password and keys.
 
  `sudo chmod 760 .pf*;sudo chown root:sudo vpnrefre.sh servermanipulation.py reachout_to_pfsense.py ./.pf*`
 
