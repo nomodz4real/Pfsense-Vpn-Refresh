@@ -29,7 +29,7 @@ sshpass
 ## Installation
 
 
-Configure the Software Dependencies listed above except for nordvpn-server-find, we will do this later
+Configure the Software Dependencies listed above except for nordvpn-server-find, this will be done by the shell script
 
 Pull down the repository:
 
