@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os, sys, json
+from PfsenseFauxapi.PfsenseFauxapi import PfsenseFauxapi
 
 def grab_fields_from_file(filename,option):
 	# Grab working path to make sure we actually find the files, I plan to enforce a location
