@@ -37,8 +37,15 @@ def get_pfsense_config():
 	client_config = build_faux_api_connection().config_get('openvpn')
 	return client_config
 
-def set_pfsense_config(client_config):
+def set_pfsense_config(bestserver):
+	client_config = get_pfsense_config()
+	for item in client_config["openvpn-client"]:
+        item["server_addr"] = str(bestserver)
+        item["description"] = str(bestserver)
 	build_faux_api_connection().config_set(client_config, 'openvpn')
 
 def reload_pfsense():
 	build_faux_api_connection().config_reload()
+
+set_pfsense_config("us2877.nordvpn.com")
+reload_pfsense()
