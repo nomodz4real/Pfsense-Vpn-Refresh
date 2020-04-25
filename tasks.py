@@ -8,7 +8,7 @@ fauxapi_apikey=os.getenv('FAUXAPI_APIKEY')
 fauxapi_apisecret=os.getenv('FAUXAPI_APISECRET')
 FauxapiLib = PfsenseFauxapi(fauxapi_host, fauxapi_apikey, fauxapi_apisecret, debug=False)
 
-Graabing the servername
+#Grabbing the servername
 bestserver = sys.argv[3].split("[1m")[1].split("\n")[0]
 
 client_config = FauxapiLib.config_get('openvpn')
