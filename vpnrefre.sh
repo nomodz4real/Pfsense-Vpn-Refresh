@@ -19,21 +19,24 @@ pfsensepass=`cat $path/.pfsensepassfile`
 bestserverfound=`$path/nordvpn-server-find/nordvpn-server-find -l US -c 10 -n 1 | grep .nordvpn.com | cut -d " " -f 1`
 
 # Get the config and write it to a file
-$path/reachout_to_pfsense.py $pfSense_ip_address $pfSense_port get | jq . > client.json
+#$path/reachout_to_pfsense.py $pfSense_ip_address $pfSense_port get | jq . > client.json
 
 # Edit the grabbed config file
-$path/servermanipulation.py $bestserverfound
+#$path/servermanipulation.py $bestserverfound
 
 # Write the config to Michael and reload the config
-$path/reachout_to_pfsense.py $pfSense_ip_address $pfSense_port set | jq .
+#$path/reachout_to_pfsense.py $pfSense_ip_address $pfSense_port set | jq .
 
 # Reload the openvpn service on Michael
-echo -e """8\recho \"<?php include('openvpn.inc'); openvpn_resync_all();?>\" | php -q\rexit\r0\r""" | sshpass -p $pfsensepass ssh admin@$pfSense_ip_address &>> /dev/null
+#echo -e """8\recho \"<?php include('openvpn.inc'); openvpn_resync_all();?>\" | php -q\rexit\r0\r""" | sshpass -p $pfsensepass ssh admin@$pfSense_ip_address &>> /dev/null
+
+# Update the server to the one found by nordvpn-server-find
+$path/tasks.py $pfSense_ip_address $pfSense_port $bestserverfound
 
 # Cleanup
-if [ -e client.json ] || [ -e autooutput.json ]
-then
-	rm *.json
-fi
+#if [ -e client.json ] || [ -e autooutput.json ]
+#then
+#	rm *.json
+#fi
 
 echo "Done!"
