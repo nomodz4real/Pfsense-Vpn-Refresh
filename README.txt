@@ -35,7 +35,7 @@ Create a file with your pfSense server's admin account password to be used by th
 
 echo "youadminpassword" > .pfsensepassfile
 
-Create a file with your pfSense server's ip address and listening port, be mindful to add a space between the two:
+Create a file with your pfSense server's ip address and listening port, be mindful to add a space between the two, the Faux API can handle hostnames and https as well so you are not limited to using your pfsense server's IP address only:
 
 echo "ipaddress port" > .pfsense_ip_and_port
 
