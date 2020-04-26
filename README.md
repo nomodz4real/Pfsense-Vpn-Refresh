@@ -1,3 +1,5 @@
+![Python application](https://github.com/nomodz4real/Pfsense-Vpn-Refresh/workflows/Python%20application/badge.svg)
+
 # Pfsense-Vpn-Refresh
 A set of code to update the vpn client address in pfsense
 
