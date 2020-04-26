@@ -33,10 +33,6 @@ Navigate inside the folder created:
 
 cd Pfsense-Vpn-Refresh/
 
-Create a file with your pfSense server's admin account password to be used by the script via sshpass:
-
-echo "youadminpassword" > .pfsensepassfile
-
 Create a file with your pfSense server's ip address and listening port, be mindful to add a space between the two, the Faux API can handle hostnames and https as well so you are not limited to using your pfsense server's IP address only:
 
 echo "ipaddress port" > .pfsense_ip_and_port
