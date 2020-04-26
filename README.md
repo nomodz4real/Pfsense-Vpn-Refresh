@@ -49,9 +49,9 @@ Create a file with your pfSense-fauxAPI key and secret that you would have gener
 (Optional)
 To keep your password secret run the following commands to ensure that only root has access to the files and will require the script be run as root with sudo. Otherwise anyone in your group can access you password and keys.
 
- `sudo chmod 760 .pf*;sudo chown root:sudo vpnrefre.sh servermanipulation.py reachout_to_pfsense.py ./.pf*`
+ `sudo chmod 760 .pf*;sudo chown root:sudo vpnrefre.sh *.py ./.pf*`
 
-***Note*** When running `sudo chown root:sudo vpnrefre.sh servermanipulation.py reachout_to_pfsense.py ./.pf*` make sure that you add the correct sudo group you may have configured on your system, for example the sudo group could also be named "wheel"
+***Note*** When running `sudo chown root:sudo vpnrefre.sh *.py ./.pf*` make sure that you add the correct sudo group you may have configured on your system, for example the sudo group could also be named "wheel"
 
 To run:
 
