@@ -20,13 +20,9 @@ def build_faux_api_connection():
 	# First some URL formatting that I worked on to allow for custom port numbers in your 
 	# pfsense server's web configurator URL
 	fauxapi_host='{}:{}'.format(grab_fields_from_file(".pfsense_ip_and_port","ip")[0],grab_fields_from_file(".pfsense_ip_and_port","ip")[1])
-	# Export the needed environment variables (this may not be needed, will have to test)
-	#os.environ['FAUXAPI_APIKEY'] = grab_fields_from_file(".pfsense_key_and_secret","key")[0]
-	#os.environ['FAUXAPI_APISECRET'] = grab_fields_from_file(".pfsense_key_and_secret","key")[1]
-	# Grab the key and secret from the system ENV variables, again may be able to just read
-	# from the password file. will probably depend on what is more secure
-	fauxapi_apikey=os.getenv('FAUXAPI_APIKEY')
-	fauxapi_apisecret=os.getenv('FAUXAPI_APISECRET')
+	# Grab the key and secret from the user created file
+	fauxapi_apikey = grab_fields_from_file(".pfsense_key_and_secret","key")[0]
+	fauxapi_apisecret = grab_fields_from_file(".pfsense_key_and_secret","key")[1]
 	# Return callable function to interact with pfsense server
 	return PfsenseFauxapi(fauxapi_host, fauxapi_apikey, fauxapi_apisecret, debug=False)
 
