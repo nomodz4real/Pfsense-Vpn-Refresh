@@ -10,7 +10,7 @@ then
 	git clone https://github.com/mrzool/nordvpn-server-find.git
 fi
 
-if [ `which pip3 | wc -l` = 0]
+if [ `which pip3 | wc -l` = 0 ]
 then
 	echo "Pip3 not found, please install before continuing"
 fi

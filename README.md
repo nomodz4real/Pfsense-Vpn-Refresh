@@ -23,9 +23,6 @@ pfsense-fauxapi python library:
 jq
 
     sudo pacman -Sy jq
-sshpass 
-
-    sudo pacman -Sy sshpass
 
 [nordvpn-server-find](https://github.com/mrzool/nordvpn-server-find): Pulled at first run if it does not exist in the working directory
 ## Installation
