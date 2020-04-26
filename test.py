@@ -7,11 +7,7 @@ def grab_fields_from_file(filename,option):
 	# for this script at some point but that's a whole project unto itself
 	full_file_path = os.getcwd() + "/" + filename
 	with open(filename,'r') as file:
-		if option == "pass":
-			return file.read().strip()
-		elif option == "key":
-			result = file.read().split(" ")
-		elif option == "ip":
+		if option == "ip" or option == "key":
 			result = file.read().split(" ")
 		else:
 			return "Invalid Request"
