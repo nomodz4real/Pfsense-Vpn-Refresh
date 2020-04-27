@@ -52,10 +52,10 @@ def get_pfsense_config():
 
 def set_pfsense_config(bestserver):
 	client_config = get_pfsense_config()
-	for item in client_config["openvpn-client"]:
-		item["server_addr"] = str(bestserver)
-		item["description"] = str(bestserver)
 	try:
+		for item in client_config["openvpn-client"]:
+			item["server_addr"] = str(bestserver)
+			item["description"] = str(bestserver)
 		build_faux_api_connection().config_set(client_config, 'openvpn')
 	except:
 		return 1
