@@ -2,6 +2,20 @@
 import os, sys, json
 from PfsenseFauxapi.PfsenseFauxapi import PfsenseFauxapi
 
+def populate_test_files_and_vars():
+	if os.path.isfile('.pfsense_ip_and_port') and os.path.isfile('.pfsense_key_and_secret'):
+		return 2
+	else:
+		try:	
+			with open('.pfsense_ip_and_port','w') as file:
+				file.write("pfsenseserverip pfsesnseserverlisteningport")
+			with open('.pfsense_key_and_secret','w') as file:
+				file.write("pfsensefauxapikey pfsensefauxapisecret")
+			print("Generated sample config files:\n.pfsense_ip_and_port\n.pfsense_key_and_secret\n\nPlease refer to README.txt for instructions on what\nto place in these files for proper function")
+			return 0
+		except:
+			return 1
+
 def grab_fields_from_file(filename,option):
 	# Grab working path to make sure we actually find the files, I plan to enforce a location
 	# for this script at some point but that's a whole project unto itself
@@ -53,6 +67,7 @@ def reload_pfsense():
 	except:
 		return 1
 
+print(populate_test_files_and_vars())
 bestserver = sys.argv[1].split("[1m")[1].split("\n")[0]
 print("Server Found: " + bestserver)
 set_pfsense_config(bestserver)
