@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import pytest, os
-os.chdir("../../")
+os.chdir("/home/runner/work/Pfsense-Vpn-Refresh/Pfsense-Vpn-Refresh")
 from tasks import *
 
 def test_functions():
