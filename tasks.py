@@ -11,7 +11,7 @@ def populate_test_files_and_vars():
 				file.write("pfsenseserverip pfsesnseserverlisteningport")
 			with open('.pfsense_key_and_secret','w') as file:
 				file.write("pfsensefauxapikey pfsensefauxapisecret")
-			print("Generated sample config files:\n.pfsense_ip_and_port\n.pfsense_key_and_secret\n\nPlease refer to README.txt for instructions on what\nto place in these files for proper function")
+			print("\n#####################################################################Generated sample config files:\n.pfsense_ip_and_port\n.pfsense_key_and_secret\n\nPlease refer to README.txt for instructions on what\nto place in these files for proper function\n#####################################################################")
 			return 0
 		except:
 			return 1
@@ -67,9 +67,8 @@ def reload_pfsense():
 	except:
 		return 1
 
-print(populate_test_files_and_vars())
+populate_test_files_and_vars()
 bestserver = sys.argv[1].split("[1m")[1].split("\n")[0]
-print("Server Found: " + bestserver)
+print("\nServer Found: " + bestserver)
 set_pfsense_config(bestserver)
 reload_pfsense()
-print("Done!")
