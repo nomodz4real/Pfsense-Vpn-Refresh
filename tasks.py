@@ -35,10 +35,18 @@ def set_pfsense_config(bestserver):
 	for item in client_config["openvpn-client"]:
 		item["server_addr"] = str(bestserver)
 		item["description"] = str(bestserver)
-	build_faux_api_connection().config_set(client_config, 'openvpn')
+	try:
+		build_faux_api_connection().config_set(client_config, 'openvpn')
+		return 0
+	except:
+		return 1
 
 def reload_pfsense():
-	build_faux_api_connection().config_reload()
+	try:
+		build_faux_api_connection().config_reload()
+		return 0
+	except:
+		return 1
 
 bestserver = sys.argv[1].split("[1m")[1].split("\n")[0]
 print("Server Found: " + bestserver)
