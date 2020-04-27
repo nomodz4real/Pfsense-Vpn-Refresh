@@ -11,7 +11,7 @@ def populate_test_files_and_vars():
 				file.write("pfsenseserverip pfsesnseserverlisteningport")
 			with open('.pfsense_key_and_secret','w') as file:
 				file.write("pfsensefauxapikey pfsensefauxapisecret")
-			print("\n#####################################################################Generated sample config files:\n.pfsense_ip_and_port\n.pfsense_key_and_secret\n\nPlease refer to README.txt for instructions on what\nto place in these files for proper function\n#####################################################################")
+			print("\n#####################################################################\nGenerated sample config files:\n.pfsense_ip_and_port\n.pfsense_key_and_secret\n\nPlease refer to README.txt for instructions on what\nto place in these files for proper function\n#####################################################################")
 			return 0
 		except:
 			return 1

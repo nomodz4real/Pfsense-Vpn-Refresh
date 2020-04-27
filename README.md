@@ -42,18 +42,18 @@ Navigate inside the folder created:
 
 Create a file with your pfSense server's ip address and listening port, be mindful to add a space between the two, the Faux API can handle hostnames and https as well so you are not limited to using your pfsense server's IP address only:
 
-    echo "ipaddress port" > .pfsense_ip_and_port
+    echo "{ipaddress} {port}" > .pfsense_ip_and_port
 
 Create a file with your pfSense-fauxAPI key and secret that you would have generated in the steps to installing the faux-api from https://github.com/ndejong/pfsense_fauxapi . Be mindful of keeping a space between the key and secret
 
-    echo "pfsensekey pfsensesecret" > .pfsense_key_and_secret
+    echo "{pfsensekey} {pfsensesecret}" > .pfsense_key_and_secret
 
 (Optional)
 To keep your password secret run the following commands to ensure that only root has access to the files and will require the script be run as root with sudo. Otherwise anyone in your group can access you password and keys.
 
- `sudo chmod 760 .pf*;sudo chown root:sudo vpnrefre.sh *.py ./.pf*`
+ `sudo chmod 760 .pf*;sudo chown root:sudo vpnrefre.sh *.py .pf*`
 
-***Note*** When running `sudo chown root:sudo vpnrefre.sh *.py ./.pf*` make sure that you add the correct sudo group you may have configured on your system, for example the sudo group could also be named "wheel"
+***Note*** When running `sudo chown root:sudo vpnrefre.sh *.py .pf*` make sure that you add the correct sudo group you may have configured on your system, for example the sudo group could also be named "wheel"
 
 To run:
 
