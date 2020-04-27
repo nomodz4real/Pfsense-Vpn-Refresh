@@ -2,6 +2,15 @@
 import os, sys, json
 from PfsenseFauxapi.PfsenseFauxapi import PfsenseFauxapi
 
+def populate_test_files_and_vars():
+	if os.path.isfile('.pfsense_ip_and_port') and os.path.isfile('.pfsense_key_and_secret'):
+		return 0
+	else:
+		with open('.pfsense_ip_and_port','w') as file:
+			file.write("testip testport")
+		with open('.pfsense_key_and_secret','w') as file:
+			file.write("testip testport")
+
 def grab_fields_from_file(filename,option):
 	# Grab working path to make sure we actually find the files, I plan to enforce a location
 	# for this script at some point but that's a whole project unto itself
@@ -24,18 +33,23 @@ def build_faux_api_connection():
 	fauxapi_apikey = grab_fields_from_file(".pfsense_key_and_secret","key")[0]
 	fauxapi_apisecret = grab_fields_from_file(".pfsense_key_and_secret","key")[1]
 	# Return callable function to interact with pfsense server
+	if fauxapi_host == 'testip:testport':
+		return 0
 	return PfsenseFauxapi(fauxapi_host, fauxapi_apikey, fauxapi_apisecret, debug=False)
 
 def get_pfsense_config():
-	client_config = build_faux_api_connection().config_get('openvpn')
-	return client_config
+	try:
+		client_config = build_faux_api_connection().config_get('openvpn')
+		return client_config
+	except:
+		return 1
 
 def set_pfsense_config(bestserver):
-	client_config = get_pfsense_config()
-	for item in client_config["openvpn-client"]:
-		item["server_addr"] = str(bestserver)
-		item["description"] = str(bestserver)
 	try:
+		client_config = get_pfsense_config()
+		for item in client_config["openvpn-client"]:
+			item["server_addr"] = str(bestserver)
+			item["description"] = str(bestserver)
 		build_faux_api_connection().config_set(client_config, 'openvpn')
 		return 0
 	except:
@@ -48,7 +62,13 @@ def reload_pfsense():
 	except:
 		return 1
 
-bestserver = sys.argv[1].split("[1m")[1].split("\n")[0]
+populate_test_files_and_vars()
+try:
+	bestserver = sys.argv[1].split("[1m")[1].split("\n")[0]
+except:
+	print("No argument passed in call to this file, setting default server")
+	bestserver = "us4466.nordvpn.com"
+
 print("Server Found: " + bestserver)
 set_pfsense_config(bestserver)
 reload_pfsense()
