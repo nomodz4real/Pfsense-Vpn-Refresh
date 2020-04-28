@@ -10,10 +10,6 @@ pfsense-fauxapi python library:
 
     pip3 install pfsense-fauxapi
 
-jq
-
-    sudo pacman -Sy jq
-
 nordvpn-server-find - https://github.com/mrzool/nordvpn-server-find
 	Pulled at first run if it does not exist in the working directory
 
