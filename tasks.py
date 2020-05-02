@@ -67,8 +67,36 @@ def reload_pfsense():
 	except:
 		return 1
 
+def grab_server_list_from_nord():
+	server_list = requests.get("https://nordvpn.com/wp-admin/admin-ajax.php?action=servers_recommendations")
+	return server_list.json()
+
+# Parses the json data from the nordvpn recommended servers url to grab the servername and load
+def parse_server_list(server_list):
+	for key in server_list:
+		parsed_server_list = {'hostname'+str(key): key['hostname'],'load'+str(key): key['load']}
+	return parsed_server_list
+
+def check_for_lowest_load(parsed_server_list):
+	load_check = 0
+	counter = 0
+	for load in parsed_server_list:
+		try:
+			if load_check > parsed_server_list['load'+str(counter)]:
+				load_check = parsed_server_list['load'+str(counter)]
+				best_server = parsed_server_list['hostname'+str(counter)]
+		except:
+			continue
+		counter += 1
+	return best_server
+
+def get_server():
+	best_server = check_for_lowest_load(parse_server_list(grab_server_list_from_nord()))
+	return best_server
+
+
 populate_test_files_and_vars()
-bestserver = sys.argv[1].split("[1m")[1].split("\n")[0]
+bestserver = get_server()
 print("\nServer Found: " + bestserver)
 set_pfsense_config(bestserver)
 reload_pfsense()
