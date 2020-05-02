@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-import os, sys, json
+import os,sys,json
+import requests
 from PfsenseFauxapi.PfsenseFauxapi import PfsenseFauxapi
 
 def populate_test_files_and_vars():
