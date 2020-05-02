@@ -10,12 +10,9 @@ pfsense-fauxapi python library:
 
     pip3 install pfsense-fauxapi
 
-nordvpn-server-find - https://github.com/mrzool/nordvpn-server-find
-	Pulled at first run if it does not exist in the working directory
-
 Installation instructions:
 
-Configure the Software Dependencies listed above except for nordvpn-server-find, we will do this later
+Configure the Software Dependencies listed above
 
 Pull down the repository:
 
@@ -36,16 +33,16 @@ echo "{pfsensekey} {pfsensesecret}" > .pfsense_key_and_secret
 (Optional)
 To keep your password secret run the following commands to ensure that only root has access to the files and will require the script be run as root with sudo. Otherwise anyone in your group can access you password and keys.
 
-sudo chmod 760 .pf*;sudo chown root:sudo vpnrefre.sh *.py .pf*
+sudo chmod 760 .pf*;sudo chown root:sudo *.py .pf*
 
-***Note*** When running `sudo chown root:sudo vpnrefre.sh *.py .pf*` make sure that you add the correct sudo group you may have configured on your system, for example the sudo group could also be named "wheel"
+***Note*** When running `sudo chown root:sudo *.py .pf*` make sure that you add the correct sudo group you may have configured on your system, for example the sudo group could also be named "wheel"
 
 To run:
 
-./vpnrefre.sh 
+./tasks.py
 
 or if you are using the secure method
 
-sudo ./vpnrefre.sh 
+sudo ./tasks.py
 
 You can also add this to your crontab or systemd timers as desired to run in the background
