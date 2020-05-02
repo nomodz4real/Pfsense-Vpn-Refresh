@@ -82,8 +82,8 @@ def parse_server_list(server_list):
 		counter += 1 
 	return parsed_server_list
 
+# This one is a mess but it works, will have to come back to it at some point
 def check_for_lowest_load(parsed_server_list):
-	print(json.dumps(parsed_server_list))
 	load_check = parsed_server_list['load0']
 	best_server = parsed_server_list['hostname0']
 	set_host = ""
@@ -108,3 +108,4 @@ bestserver = get_server()
 print("\nServer Found: " + bestserver)
 set_pfsense_config(bestserver)
 reload_pfsense()
+print("\nDone!")
