@@ -74,27 +74,34 @@ def grab_server_list_from_nord():
 
 # Parses the json data from the nordvpn recommended servers url to grab the servername and load
 def parse_server_list(server_list):
+	counter = 0
+	parsed_server_list = {}
 	for key in server_list:
-		parsed_server_list = {'hostname'+str(key): key['hostname'],'load'+str(key): key['load']}
+		parsed_server_list['hostname'+str(counter)] = key['hostname']
+		parsed_server_list['load'+str(counter)] = key['load']
+		counter += 1 
 	return parsed_server_list
 
 def check_for_lowest_load(parsed_server_list):
-	load_check = 0
-	counter = 0
+	print(json.dumps(parsed_server_list))
+	load_check = parsed_server_list['load0']
+	best_server = parsed_server_list['hostname0']
+	set_host = ""
 	for load in parsed_server_list:
-		try:
-			if load_check > parsed_server_list['load'+str(counter)]:
-				load_check = parsed_server_list['load'+str(counter)]
-				best_server = parsed_server_list['hostname'+str(counter)]
-		except:
-			continue
-		counter += 1
+		if set_host == "y":
+			best_server = parsed_server_list[load]
+			set_host = "n"
+		else:
+			set_host = "n"
+		if load.startswith('load'):
+			if parsed_server_list[load] < load_check:
+				load_check = parsed_server_list[load]
+				set_host = "y"
 	return best_server
 
 def get_server():
 	best_server = check_for_lowest_load(parse_server_list(grab_server_list_from_nord()))
 	return best_server
-
 
 populate_test_files_and_vars()
 bestserver = get_server()
