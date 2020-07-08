@@ -106,6 +106,9 @@ def get_server():
 populate_test_files_and_vars()
 bestserver = get_server()
 print("\nServer Found: " + bestserver)
+if os.path.isdir('/var/log/'):
+    with open('/var/log/vpnrefresh','a') as file:
+        file.write("\n\nServer Found: " + bestserver)
 set_pfsense_config(bestserver)
 reload_pfsense()
 print("\nDone!")
