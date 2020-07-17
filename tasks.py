@@ -20,7 +20,7 @@ def populate_test_files_and_vars():
 def grab_fields_from_file(filename,option):
 	# Grab working path to make sure we actually find the files, I plan to enforce a location
 	# for this script at some point but that's a whole project unto itself
-	full_file_path = os.getcwd() + "/" + filename
+	# full_file_path = os.getcwd() + "/" + filename
 	with open(filename,'r') as file:
 		if option == "ip" or option == "key":
 			result = file.read().split(" ")
