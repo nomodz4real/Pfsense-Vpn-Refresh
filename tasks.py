@@ -42,14 +42,14 @@ def build_faux_api_connection():
 	try:
 		return PfsenseFauxapi(fauxapi_host, key_secret[0], key_secret[1], debug=False)
 	except:
-		return 1
+		raise Exception("Unable to read data files to build connection to the FauxAPI instance or data found was incorrect.")
 
 def get_pfsense_config():
 	try:
 		client_config = build_faux_api_connection().config_get('openvpn')
 		return client_config
 	except:
-		return 1
+		raise Exception("Unable to grab the configuration data for openvpn")
 
 def set_pfsense_config(bestserver):
 	client_config = get_pfsense_config()
@@ -59,14 +59,14 @@ def set_pfsense_config(bestserver):
 			item["description"] = str(bestserver)
 		build_faux_api_connection().config_set(client_config, 'openvpn')
 	except:
-		return 1
+		raise Exception("Unable to set new parameters for openvpn-client configuration")
 
 def reload_pfsense():
 	try:
 		build_faux_api_connection().config_reload()
 		return 0
 	except:
-		return 1
+		raise Exception("Unable to reload pfsense configuration")
 
 def grab_server_list_from_nord():
 	server_list = requests.get("https://nordvpn.com/wp-admin/admin-ajax.php?action=servers_recommendations")
