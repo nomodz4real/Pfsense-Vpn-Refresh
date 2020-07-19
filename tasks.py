@@ -26,7 +26,7 @@ def populate_test_files_and_vars(user):
 def grab_fields_from_file(filename,option):
 	with open(filename,'r') as file:
 		if option == "ip" or option == "key":
-			result = file.read().split(" ").strip()
+			result = file.read().split(" ")
 		else:
 			raise Exception("Improper option passed to grab_fields_from_file method.")
 	return result
