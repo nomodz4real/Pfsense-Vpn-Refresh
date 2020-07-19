@@ -35,7 +35,7 @@ def build_faux_api_connection():
 	# First some URL formatting that I worked on to allow for custom port numbers in your 
 	# pfsense server's web configurator URL
 	host_raw = grab_fields_from_file(".pfsense_ip_and_port","ip")
-	fauxapi_host="{}:{}".format(host_raw[0],host_raw[1],strip())
+	fauxapi_host="{}:{}".format(host_raw[0],host_raw[1].strip())
 	# Grab the key and secret from the user created file
 	key_secret = grab_fields_from_file(".pfsense_key_and_secret","key")
 	# Return callable function to interact with pfsense server
