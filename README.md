@@ -19,6 +19,10 @@ Pip for python 3
 pfsense-fauxapi python library:
 
     pip3 install pfsense-fauxapi
+    
+requests python library:
+
+    pip3 install requests
 
 ## Installation
 
