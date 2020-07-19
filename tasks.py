@@ -1,46 +1,46 @@
 #!/usr/bin/python3
 import os,sys,json
 import requests
+import getpass
 from PfsenseFauxapi.PfsenseFauxapi import PfsenseFauxapi
 
-def populate_test_files_and_vars():
-	if os.path.isfile('.pfsense_ip_and_port') and os.path.isfile('.pfsense_key_and_secret'):
-		return 2
+def populate_test_files_and_vars(user):
+	if user == "root":
+		path = "/root/.vpnrefresh"
+	else:
+		path = "/home/{}/.vpnrefresh".format(user)
+	if os.path.isfile('{}/.pfsense_ip_and_port'.format(path)) and os.path.isfile('{}/.pfsense_key_and_secret'.format(path)):
+		return path
 	else:
 		try:	
-			with open('.pfsense_ip_and_port','w') as file:
-				file.write("pfsenseserverip pfsesnseserverlisteningport")
-			with open('.pfsense_key_and_secret','w') as file:
-				file.write("pfsensefauxapikey pfsensefauxapisecret")
-			print("\n#####################################################################\nGenerated sample config files:\n.pfsense_ip_and_port\n.pfsense_key_and_secret\n\nPlease refer to README.txt for instructions on what\nto place in these files for proper function\n#####################################################################")
-			return 0
+			os.mkdir(path)
+			with open('{}/.pfsense_ip_and_port'.format(path),'w') as file:
+				file.write("<pfsenseserverip> <pfsesnseserverlisteningport>")
+			with open('{}/.pfsense_key_and_secret'.format(path),'w') as file:
+				file.write("<pfsensefauxapikey> <pfsensefauxapisecret>")
+			print("\n#####################################################################\nGenerated sample config files:\n.pfsense_ip_and_port\n.pfsense_key_and_secret in {}\n\nPlease refer to README.txt for instructions on what\nto place in these files for proper function\n#####################################################################".format(path))
+			return path
 		except:
-			return 1
+			raise Exception("Unable to write to {} directory, please ensure permissions are correct".format(path))
 
 def grab_fields_from_file(filename,option):
-	# Grab working path to make sure we actually find the files, I plan to enforce a location
-	# for this script at some point but that's a whole project unto itself
-	# full_file_path = os.getcwd() + "/" + filename
 	with open(filename,'r') as file:
 		if option == "ip" or option == "key":
-			result = file.read().split(" ")
+			result = file.read().split(" ").strip()
 		else:
-			return "Invalid Request"
-	stripped_list = []
-	for i in result:
-		stripped_list.append(i.strip())
-	return stripped_list 
+			raise Exception("Improper option passed to grab_fields_from_file method.")
+	return result
 
 def build_faux_api_connection():
 	# First some URL formatting that I worked on to allow for custom port numbers in your 
 	# pfsense server's web configurator URL
-	fauxapi_host='{}:{}'.format(grab_fields_from_file(".pfsense_ip_and_port","ip")[0],grab_fields_from_file(".pfsense_ip_and_port","ip")[1])
+	host_raw = grab_fields_from_file(".pfsense_ip_and_port","ip")
+	fauxapi_host="{}:{}".format(host_raw[0],host_raw[1])
 	# Grab the key and secret from the user created file
-	fauxapi_apikey = grab_fields_from_file(".pfsense_key_and_secret","key")[0]
-	fauxapi_apisecret = grab_fields_from_file(".pfsense_key_and_secret","key")[1]
+	key_secret = grab_fields_from_file(".pfsense_key_and_secret","key")
 	# Return callable function to interact with pfsense server
 	try:
-		return PfsenseFauxapi(fauxapi_host, fauxapi_apikey, fauxapi_apisecret, debug=False)
+		return PfsenseFauxapi(fauxapi_host, key_secret[0], key_secret[1], debug=False)
 	except:
 		return 1
 
@@ -103,12 +103,20 @@ def get_server():
 	best_server = check_for_lowest_load(parse_server_list(grab_server_list_from_nord()))
 	return best_server
 
-populate_test_files_and_vars()
+user = getpass.getuser()
+if user == "root":
+	use_root = input("Root user detected, proceed with file creation/operation as root? [y/n]")
+	if use_root.lower()[0] == "n":
+		raise Exception("Please run as intended user to proceed")
+path = populate_test_files_and_vars(user)
+os.chdir(path)
 bestserver = get_server()
 print("\nServer Found: " + bestserver)
-if os.path.isdir('/var/log/'):
-    with open('/var/log/vpnrefresh','a') as file:
-        file.write("\n\nServer Found: " + bestserver)
+try:
+	with open('/var/log/vpnrefresh','a') as file:
+		file.write("\n\nServer Found: " + bestserver)
+except:
+	print("Unable to write to /var/log directory")
 set_pfsense_config(bestserver)
 reload_pfsense()
 print("\nDone!")
