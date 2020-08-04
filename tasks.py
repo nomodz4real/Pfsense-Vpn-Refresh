@@ -3,6 +3,7 @@ import os,sys,json
 import requests
 import getpass
 from PfsenseFauxapi.PfsenseFauxapi import PfsenseFauxapi
+import datetime
 
 def populate_test_files_and_vars(user):
 	if user == "root":
@@ -114,7 +115,7 @@ bestserver = get_server()
 print("\nServer Found: " + bestserver)
 try:
 	with open('/var/log/vpnrefresh','a') as file:
-		file.write("\n\nServer Found: " + bestserver)
+		file.write(str(datetime.datetime.now()) + " Server Found: " + bestserver)
 except:
 	print("Unable to write to /var/log directory")
 set_pfsense_config(bestserver)
