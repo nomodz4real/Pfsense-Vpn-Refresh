@@ -112,7 +112,7 @@ bestserver = get_server()
 print("\nServer Found: " + bestserver)
 try:
 	with open('/var/log/vpnrefresh','a') as file:
-		file.write(str(datetime.datetime.now()) + " Server Found: " + bestserver)
+		file.write("\n" + str(datetime.datetime.now()) + " Server Found: " + bestserver)
 except:
 	print("Unable to write to /var/log directory")
 set_pfsense_config(bestserver)
