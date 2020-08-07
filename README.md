@@ -38,11 +38,11 @@ Navigate inside the folder created:
 
 To run:
 
-`./tasks.py`
+`./main.py`
 
 or if you are using the secure method
 
-`sudo ./tasks.py`
+`sudo ./main.py`
 
 Upon first run a file with your pfSense server's IP address and listening port will be created with sample data that would be needed, replace the values with your server's IP address and listening port, the Faux API can handle hostnames and https as well so you are not limited to using your pfsense server's IP address only
 
