@@ -23,7 +23,7 @@ def populate_test_files_and_vars(user):
 			print("\n#####################################################################\nGenerated sample config files:\n.pfsense_ip_and_port\n.pfsense_key_and_secret in {}\n\nPlease refer to README.txt for instructions on what\nto place in these files for proper function\n#####################################################################".format(path))
 			return path
 		except:
-			raise Exception("Unable to write to {} directory, please ensure permissions are correct".format(path))
+			raise Exception("Unable to write to {} , please ensure permissions are correct".format(path))
 
 def grab_fields_from_file(filename,option):
 	with open(filename,'r') as file:
@@ -109,12 +109,12 @@ user = getpass.getuser()
 path = populate_test_files_and_vars(user)
 os.chdir(path)
 bestserver = get_server()
-print("\nServer Found: " + bestserver)
+print("Server Found: " + bestserver)
 try:
 	with open('/var/log/vpnrefresh','a') as file:
-		file.write("\n" + str(datetime.datetime.now()) + " Server Found: " + bestserver)
+		file.write(str(datetime.datetime.now()) + " Server Found: " + bestserver + "\n")
 except:
 	print("Unable to write to /var/log directory")
 set_pfsense_config(bestserver)
-reload_pfsense()
+reload_pfsense())
 print("\nDone!")
