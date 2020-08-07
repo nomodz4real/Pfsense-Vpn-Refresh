@@ -2,7 +2,6 @@
 import os
 import json
 import requests
-import getpass
 from PfsenseFauxapi.PfsenseFauxapi import PfsenseFauxapi
 import datetime
 
@@ -105,16 +104,9 @@ def get_server():
 	best_server = check_for_lowest_load(parse_server_list(grab_server_list_from_nord()))
 	return best_server
 
-user = getpass.getuser()
-path = populate_test_files_and_vars(user)
-os.chdir(path)
-bestserver = get_server()
-print("Server Found: " + bestserver)
-try:
-	with open('/var/log/vpnrefresh','a') as file:
-		file.write(str(datetime.datetime.now()) + " Server Found: " + bestserver + "\n")
-except:
-	print("Unable to write to /var/log directory")
-set_pfsense_config(bestserver)
-reload_pfsense())
-print("\nDone!")
+def log_run(bestserver):
+	try:
+		with open('/var/log/vpnrefresh','a') as file:
+			file.write(str(datetime.datetime.now()) + " Server Found: " + bestserver + "\n")
+	except:
+		print("Unable to write to /var/log directory please check permissions")
